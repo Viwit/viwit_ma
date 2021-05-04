@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/pages/wallet/balance/balance_page.dart';
 import 'package:viwit_ma/src/pages/wallet/balance/wallet_page.dart';
 import 'package:viwit_ma/src/providers/UI_Provider.dart';
-import 'package:viwit_ma/src/providers/User_Provider.dart';
 import 'package:viwit_ma/src/widgets/NavegationBar.dart';
 import 'package:viwit_ma/src/widgets/ScanButton.dart';
 

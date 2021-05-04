@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/providers/User_Provider.dart';
 
 class TransactionPage extends StatelessWidget {
   final String getTransactions = r"""
@@ -42,7 +40,7 @@ getTransactionsByWalletId(id: $id){
               if (transactions.length == 0) {
                 return Container(
                   child: Text(
-                    "Don't have any transactions.",
+                    "No tienes transacciones :(.",
                     textAlign: TextAlign.justify,
                   ),
                   alignment: Alignment.center,
@@ -59,9 +57,9 @@ getTransactionsByWalletId(id: $id){
                       final date = transactions[index]["date"];
                       var kind = transactions[index]["type"];
                       if (kind == 1) {
-                        kind = "Recharge";
+                        kind = "Recarga";
                       } else {
-                        kind = "Ticket Payment";
+                        kind = "Pago pasaje";
                       }
                       return ListTile(
                           tileColor: Color(0x0F321FDB),
@@ -74,9 +72,9 @@ getTransactionsByWalletId(id: $id){
                                     fontStyle: FontStyle.italic,
                                     fontWeight: FontWeight.bold),
                               ),
-                              Text("Mount: \$" + mount.toString()),
-                              Text("State: " + status),
-                              Text("Date: " + date),
+                              Text("Monto : \$" + mount.toString()),
+                              Text("Estado: " + status),
+                              Text("Fecha : " + date),
                             ],
                           ),
                           subtitle: Text("Trans: " + (++index).toString()));

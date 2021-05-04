@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:viwit_ma/src/bloc/NavegationbarBloc.dart';
@@ -26,10 +24,10 @@ class _NavegationBarState extends State<NavegationBar> {
         BottomNavigationBarItem(
             backgroundColor: Color(0xFF03F7A2),
             icon: Icon(Icons.attach_money),
-            label: "Balance"),
-        BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: "Create QR"),
+            label: "Saldo"),
+        BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: "Crear QR"),
         BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_rounded), label: "Transaction")
+            icon: Icon(Icons.bar_chart_rounded), label: "Transacciones")
       ],
     );
   }

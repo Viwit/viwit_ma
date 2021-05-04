@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/providers/User_Provider.dart';
 
 class BalancePage extends StatelessWidget {
   final String getAllWallet = r"""
@@ -41,7 +39,7 @@ getWalletByUserId(id: $id){
 
               return AlertDialog(
                   title: Text(
-                    'Your balance is: \$' + balance.toString(),
+                    'Tu saldo es: \$' + balance.toString(),
                     textScaleFactor: 2,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -51,7 +49,7 @@ getWalletByUserId(id: $id){
                   elevation: 5,
                   backgroundColor: Color(0xFF3399FF),
                   content:
-                      Text('Ticket: $pasajes', textAlign: TextAlign.center),
+                      Text('Pasaje: $pasajes', textAlign: TextAlign.center),
                   titleTextStyle: TextStyle(
                       fontWeight: FontWeight.bold,
                       foreground: Paint()..color = Color(0xFF321FDB)));

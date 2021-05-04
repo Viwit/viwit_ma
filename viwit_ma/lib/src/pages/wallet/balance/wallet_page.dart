@@ -50,7 +50,6 @@ class WalletPage extends StatelessWidget {
         );
         break;
       default:
-        uiProvider.setSelectedOptionAppNavBar = "Viwit - QR Code";
         return GraphQLProvider(
           client: client,
           child: MaterialApp(
