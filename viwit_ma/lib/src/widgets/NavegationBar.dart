@@ -15,10 +15,12 @@ class _NavegationBarState extends State<NavegationBar> {
   Widget build(BuildContext context) {
     final uiProvider = Provider.of<UiProvider>(context);
     final indexNavegationBar = uiProvider.getSelectedOptionNavegationBar;
+    final indexNavegationBar2 =
+        indexNavegationBar <= 2 ? indexNavegationBar : 1;
     return BottomNavigationBar(
       onTap: (int option) =>
           {uiProvider.setSelectedOptionNavegationBar = option},
-      currentIndex: indexNavegationBar,
+      currentIndex: indexNavegationBar2,
       backgroundColor: Color(0xFFCED2D8),
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
