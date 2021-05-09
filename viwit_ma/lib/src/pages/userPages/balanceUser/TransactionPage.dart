@@ -56,7 +56,7 @@ getTransactionsByWalletId(id: $id){
                   elevation: 10,
                   backgroundColor: Color(0xFF3399FF),
                   content: EmojiText(
-                    text: 'No haz realizado ningún tipo de transferencia \n😞',
+                    text: 'No haz realizado ningún tipo de transferencia  \n😞',
                   ),
                   titleTextStyle: TextStyle(
                       fontWeight: FontWeight.bold,
