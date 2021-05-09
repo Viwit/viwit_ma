@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/bloc/NavegationbarBloc.dart';
-import 'package:viwit_ma/src/providers/UI_Provider.dart';
+import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
 
 class NavegationBar extends StatefulWidget {
   @override
@@ -9,7 +8,6 @@ class NavegationBar extends StatefulWidget {
 }
 
 class _NavegationBarState extends State<NavegationBar> {
-  NavegationbarBloc optionNavegationbarBloc = new NavegationbarBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +26,10 @@ class _NavegationBarState extends State<NavegationBar> {
             icon: Icon(Icons.attach_money),
             label: "Saldo"),
         BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: "Crear QR"),
+        BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: "Recargar"),
         BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart_rounded), label: "Transacciones")
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    optionNavegationbarBloc.dispose();
   }
 }

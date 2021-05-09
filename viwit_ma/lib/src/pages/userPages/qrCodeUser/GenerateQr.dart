@@ -9,9 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:viwit_ma/src/complements/emojis.dart';
+import 'package:viwit_ma/src/complements/Emojis.dart';
 
-import 'package:viwit_ma/src/providers/User_Provider.dart';
+import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
 
 class Generate extends StatefulWidget {
   @override

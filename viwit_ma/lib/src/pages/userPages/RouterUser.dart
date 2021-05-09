@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/pages/userInterface/wallet/balance/balance_page.dart';
-import 'package:viwit_ma/src/pages/userInterface/wallet/balance/transaction_page.dart';
-import 'package:viwit_ma/src/pages/userInterface/wallet/balance/scanPayment.dart';
-import 'package:viwit_ma/src/providers/UI_Provider.dart';
-import 'package:viwit_ma/src/pages/userInterface/wallet/qr_code/generate_QR.dart';
-import 'package:viwit_ma/src/pages/userInterface/wallet/balance/registerUser.dart';
+import 'package:viwit_ma/src/pages/userPages/balanceUser/BalancePage.dart';
+import 'package:viwit_ma/src/pages/userPages/balanceUser/TransactionPage.dart';
+import 'package:viwit_ma/src/pages/userPages/balanceUser/ScanPayment.dart';
+import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
+import 'package:viwit_ma/src/pages/userPages/qrCodeUser/GenerateQr.dart';
+import 'package:viwit_ma/src/pages/userPages/messagesUser/RegisterUser.dart';
 
-class WalletPage extends StatelessWidget {
+class RouterMainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final uiProvider = Provider.of<UiProvider>(context);

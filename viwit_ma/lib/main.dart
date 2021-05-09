@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:viwit_ma/src/pages/Home.dart';
-import 'package:viwit_ma/src/providers/UI_Provider.dart';
-import 'package:viwit_ma/src/providers/User_Provider.dart';
+import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
+import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
 import 'package:viwit_ma/src/pages/Login.dart';
 import 'package:viwit_ma/src/pages/Register.dart';
-import 'package:viwit_ma/src/pages/userInterface/wallet/balance/registerUser.dart';
+import 'package:viwit_ma/src/pages/userPages/messagesUser/RegisterUser.dart';
 
 void main() => runApp(MyApp());
 

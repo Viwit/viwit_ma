@@ -4,9 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/providers/UI_Provider.dart';
+import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
 
-class RegisterUserMutation extends StatelessWidget {
+class ScanPayment extends StatelessWidget {
+  final String mutationPay = """
+mutation{
+  postCreateTransaction(transaction:{
+    token:"hoy"
+    wallet_id:1
+    id_method_payment: 1
+    mount:2300
+    type: 0
+  }){
+    data{
+    status
+  }
+  }
+}
+ """;
   @override
   Widget build(BuildContext context) {
     final uiProvider = Provider.of<UiProvider>(context);
@@ -14,27 +29,8 @@ class RegisterUserMutation extends StatelessWidget {
         backgroundColor: Color(0x6A636F83),
         body: Mutation(
           options: MutationOptions(
-            document: gql("""
-                          mutation{
-                            setUser(user:{
-                              Firstname: "${uiProvider.getfirstname}"
-                              Lastname: "${uiProvider.getlastname}"
-                              Email: "${uiProvider.getemail}"
-                              User_password: "${uiProvider.getPassword}"
-                              Block_account: false
-                              User_type: 1
-                            }){
-                              User_id
-                              Firstname
-                              Lastname
-                              Lastname
-                              Email
-                              Reg_date
-                              User_type
-                              __typename
-                            }
-                          }
-                          """), // this is the mutation string you just created
+            document: gql(
+                mutationPay), // this is the mutation string you just created
             // you can update the cache based on results
             update: (GraphQLDataProxy cache, QueryResult result) {
               return cache;
@@ -49,37 +45,38 @@ class RegisterUserMutation extends StatelessWidget {
             QueryResult result,
           ) {
             return AlertDialog(
-                title: Text(('Confirmacion registro'),
+                title: Text(('Confirmacion pago'),
                     textScaleFactor: 2,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.mandali()),
                 elevation: 5,
                 actions: [
                   FlatButton(
-                    child: Text(('No'),
+                    child: Text(('Cancelar'),
                         textScaleFactor: 1.5,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.mandali(color: Colors.white)),
                     onPressed: () {
-                      Navigator.pushNamed(uiProvider.getContextUi, 'login');
+                      uiProvider.setSelectedOptionNavegationBar = 0;
                     },
                   ),
                   FlatButton(
-                    child: Text(('Si'),
+                    child: Text(('Aceptar'),
                         textScaleFactor: 1.5,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.mandali(color: Colors.white)),
                     onPressed: () {
+                      print(mutationPay);
                       runMutation({
                         'starrableId': 1,
                       });
-                      Navigator.pushNamed(uiProvider.getContextUi, 'login');
+                      uiProvider.setSelectedOptionNavegationBar = 0;
                     },
                   )
                 ],
                 backgroundColor: Color(0xCA3399FF),
                 content: Text(
-                  '¿Estas seguro?',
+                  '¿Estas de acuerdo con el pago del pasaje?',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.mandali(color: Color(0xFFCED2D8)),
                   textScaleFactor: 1.5,

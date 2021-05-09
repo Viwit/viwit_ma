@@ -6,29 +6,29 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-import 'package:viwit_ma/src/providers/User_Provider.dart';
+import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
 
 class BalancePage extends StatelessWidget {
   final String getAllWallet = r"""
-query($id: Int!)
-{
-getWalletByUserId(id: $id){
-  data{
-    balance
-  }
-}
-}
- """;
+                                query($id: Int!){
+                                  getWalletByUserId(id: $id){
+                                    data{
+                                      balance
+                                    }
+                                  }
+                                }
+                              """;
   @override
   Widget build(BuildContext context) {
+    
     final userProvider = Provider.of<UserProvider>(context);
-
     final currencyFormat = new NumberFormat("#,##0.00", "en_US");
     return Scaffold(
         body: Query(
             options: QueryOptions(document: gql(getAllWallet), variables: {
               "id": userProvider.getUserId
-            }), //Debe recibir el id de la billetera del usuario
+            }), 
+            //Debe recibir el id de la billetera del usuario
             builder: (result, {fetchMore, refetch}) {
               if (result.hasException) {
                 return Text(result.exception.toString());

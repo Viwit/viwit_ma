@@ -1,23 +1,13 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import '../classes/payment.dart';
 
-import 'package:viwit_ma/src/classes/payment.dart';
-
-import '../providers/UI_Provider.dart';
+import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
 
 class ScanButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final uiProvider = Provider.of<UiProvider>(context);
-
-    final ValueNotifier<GraphQLClient> client =
-        new ValueNotifier<GraphQLClient>(GraphQLClient(
-            link: uiProvider.getIpgraphQL, cache: GraphQLCache()));
 
     return Container(
       height: 80.0,

@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:viwit_ma/src/complements/emojis.dart';
 
-import 'package:viwit_ma/src/providers/User_Provider.dart';
+import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
 
 class TransactionPage extends StatelessWidget {
   final String getTransactions = r"""

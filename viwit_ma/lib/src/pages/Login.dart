@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../providers/UI_Provider.dart';
+import 'package:viwit_ma/src/pages/Home.dart';
+import 'package:viwit_ma/src/pages/Register.dart';
+import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
 
 final _controllerEmail = TextEditingController();
 final _controllerPassword = TextEditingController();
@@ -139,7 +141,10 @@ Widget _loginButton(BuildContext context) {
     onPressed: () {
       _controllerEmail.clear();
       _controllerPassword.clear();
-      return Navigator.pushNamed(context, 'home');
+      return Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
     },
   );
 }
@@ -157,7 +162,10 @@ Widget _registerButton(BuildContext context) {
     onPressed: () {
       _controllerEmail.clear();
       _controllerPassword.clear();
-      return Navigator.pushNamed(context, 'register');
+      return Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RegisterUser()),
+      );
     },
   );
 }

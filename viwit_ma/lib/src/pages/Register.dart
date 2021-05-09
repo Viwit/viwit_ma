@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:viwit_ma/src/pages/Login.dart';
+import 'package:viwit_ma/src/pages/userPages/messagesUser/RegisterUser.dart';
 
-import 'package:viwit_ma/src/providers/UI_Provider.dart';
+import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
 
 final _controllerEmail = TextEditingController();
 final _controllerPassword = TextEditingController();
@@ -155,7 +157,7 @@ Widget _password() {
 }
 
 Widget _registrarButton(BuildContext context) {
-  final uiProvider = Provider.of<UiProvider>(context);
+  final userProvider = Provider.of<UserProvider>(context);
   return RaisedButton(
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 8.0),
@@ -166,16 +168,18 @@ Widget _registrarButton(BuildContext context) {
     color: Color(0xFF3399FF),
     textColor: Colors.white,
     onPressed: () {
-      uiProvider.setEmail = _controllerEmail.text;
-      uiProvider.setPassword = _controllerPassword.text;
-      uiProvider.setfirstname = _controllerFirstName.text;
-      uiProvider.setlastname = _controllerLastName.text;
+      userProvider.setEmail = _controllerEmail.text;
+      userProvider.setPassword = _controllerPassword.text;
+      userProvider.setFirstname = _controllerFirstName.text;
+      userProvider.setLastname = _controllerLastName.text;
       _controllerEmail.clear();
       _controllerPassword.clear();
       _controllerFirstName.clear();
       _controllerLastName.clear();
-      uiProvider.setSelectedOptionNavegationBar = 4;
-      return Navigator.pushNamed(context, 'home');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RegisterUserMutation()),
+      );
     },
   );
 }
@@ -195,7 +199,10 @@ Widget _backToLoginButton(BuildContext context) {
       _controllerPassword.clear();
       _controllerFirstName.clear();
       _controllerLastName.clear();
-      return Navigator.pushNamed(context, 'login');
+      return Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginUser()),
+      );
     },
   );
 }
