@@ -26,7 +26,7 @@ class _NavegationBarState extends State<NavegationBar> {
             icon: Icon(Icons.attach_money),
             label: "Saldo"),
         BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: "Crear QR"),
-        BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: "Recargar"),
+        BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: "Recarga"),
         BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart_rounded), label: "Transacciones")
       ],
