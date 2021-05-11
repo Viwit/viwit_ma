@@ -199,10 +199,7 @@ Widget _backToLoginButton(BuildContext context) {
       _controllerPassword.clear();
       _controllerFirstName.clear();
       _controllerLastName.clear();
-      return Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => LoginUser()),
-      );
+      return Navigator.pop(context);
     },
   );
 }

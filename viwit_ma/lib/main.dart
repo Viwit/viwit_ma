@@ -6,6 +6,7 @@ import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
 import 'package:viwit_ma/src/pages/Login.dart';
 import 'package:viwit_ma/src/pages/Register.dart';
 import 'package:viwit_ma/src/pages/userPages/messagesUser/RegisterUser.dart';
+import 'package:viwit_ma/src/pages/userPages/messagesUser/LoginMessage.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
           'home': (_) => Home(),
           'login': (_) => LoginUser(),
           'register': (_) => RegisterUser(),
-          'confirmRegister': (_) => RegisterUserMutation()
+          'confirmRegister': (_) => RegisterUserMutation(),
+          'messageLogin': (_) => LoginMessage()
         },
       ),
     );

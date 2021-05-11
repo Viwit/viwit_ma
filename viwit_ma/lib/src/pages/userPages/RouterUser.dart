@@ -71,7 +71,7 @@ class RouterMainMenu extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Material App',
-            home: ScanPayment(),
+            home: TransactionPage(),
           ),
         );
         break;
@@ -83,7 +83,7 @@ class RouterMainMenu extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Material App',
-            home: RegisterUserMutation(),
+            home: ScanPayment(),
           ),
         );
         break;
