@@ -35,6 +35,7 @@ query($id: Int!){
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
+        backgroundColor: Color(0x2F8899FF),
         body: Query(
             options: QueryOptions(document: gql(getData), variables: {
               "id": userProvider.getUserId

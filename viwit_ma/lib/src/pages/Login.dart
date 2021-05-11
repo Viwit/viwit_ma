@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:viwit_ma/src/pages/Home.dart';
 import 'package:viwit_ma/src/pages/Register.dart';
 import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
+import 'package:viwit_ma/src/pages/userPages/messagesUser/LoginMessage.dart';
+
+import '../providers/userProvider/UserProvider.dart';
 
 final _controllerEmail = TextEditingController();
 final _controllerPassword = TextEditingController();
@@ -14,7 +17,7 @@ class LoginUser extends StatelessWidget {
     final sizeScreen = MediaQuery.of(context).size;
     final uiProvider = Provider.of<UiProvider>(context);
     final indexNavegationBar = uiProvider.getSelectedOptionNavegationBar;
-    if (indexNavegationBar > 2) {
+    if (indexNavegationBar > 4) {
       uiProvider.setSelectedOptionNavegationBar = 0;
     }
     return Scaffold(
@@ -129,6 +132,7 @@ Widget _password() {
 }
 
 Widget _loginButton(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
   return RaisedButton(
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 5.0),
@@ -139,11 +143,13 @@ Widget _loginButton(BuildContext context) {
     color: Color(0xFF3399FF),
     textColor: Colors.white,
     onPressed: () {
+      userProvider.setEmail = _controllerEmail.text;
+      userProvider.setPassword= _controllerPassword.text;
       _controllerEmail.clear();
       _controllerPassword.clear();
-      return Navigator.push(
+      Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Home()),
+        MaterialPageRoute(builder: (context) => LoginMessage()),
       );
     },
   );

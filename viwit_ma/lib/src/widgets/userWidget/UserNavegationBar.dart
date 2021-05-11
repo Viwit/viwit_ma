@@ -8,27 +8,28 @@ class NavegationBar extends StatefulWidget {
 }
 
 class _NavegationBarState extends State<NavegationBar> {
-
   @override
   Widget build(BuildContext context) {
     final uiProvider = Provider.of<UiProvider>(context);
     final indexNavegationBar = uiProvider.getSelectedOptionNavegationBar;
     final indexNavegationBar2 =
-        indexNavegationBar <= 2 ? indexNavegationBar : 1;
+        indexNavegationBar <= 3 ? indexNavegationBar : 0;
     return BottomNavigationBar(
-      onTap: (int option) =>
-          {uiProvider.setSelectedOptionNavegationBar = option},
+      onTap: (int option) => {
+        uiProvider.setSelectedOptionNavegationBar = option,
+      },
       currentIndex: indexNavegationBar2,
       backgroundColor: Color(0xFFCED2D8),
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-            backgroundColor: Color(0xFF03F7A2),
+            backgroundColor: Color(0xDA3399FF),
             icon: Icon(Icons.attach_money),
             label: "Saldo"),
         BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: "Crear QR"),
-        BottomNavigationBarItem(icon: Icon(Icons.qr_code), label: "Recargar"),
         BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_rounded), label: "Transacciones")
+            icon: Icon(Icons.bar_chart_rounded), label: "Transacciones"),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.add_outlined), label: "Recargar")
       ],
     );
   }

@@ -24,6 +24,7 @@ class BalancePage extends StatelessWidget {
     final userProvider = Provider.of<UserProvider>(context);
     final currencyFormat = new NumberFormat("#,##0.00", "en_US");
     return Scaffold(
+        backgroundColor: Color(0x2F8899FF),
         body: Query(
             options: QueryOptions(document: gql(getAllWallet), variables: {
               "id": userProvider.getUserId

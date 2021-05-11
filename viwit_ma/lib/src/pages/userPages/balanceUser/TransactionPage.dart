@@ -27,6 +27,7 @@ getTransactionsByWalletId(id: $id){
     final userProvider = Provider.of<UserProvider>(context);
     final currencyFormat = new NumberFormat("#,##0.00", "en_US");
     return Scaffold(
+        backgroundColor: Color(0x2F8899FF),
         body: Query(
             options: QueryOptions(document: gql(getTransactions), variables: {
               "id": userProvider.getUserId
@@ -56,7 +57,7 @@ getTransactionsByWalletId(id: $id){
                   elevation: 10,
                   backgroundColor: Color(0xFF3399FF),
                   content: EmojiText(
-                    text: 'No haz realizado ningún tipo de transferencia \n😞',
+                    text: 'No haz realizado ningún tipo de transferencia  \n😞',
                   ),
                   titleTextStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -65,7 +66,8 @@ getTransactionsByWalletId(id: $id){
               } else {
                 return ListView.separated(
                     separatorBuilder: (context, index) => Divider(
-                          color: Color(0xFFFFFFFF),
+                          indent: 12,
+                          color: Color(0xCA3399FF),
                         ),
                     itemCount: transactions.length,
                     itemBuilder: (context, index) {

@@ -9,6 +9,8 @@ import 'package:viwit_ma/src/pages/Home.dart';
 import 'package:viwit_ma/src/pages/Login.dart';
 import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
 
+import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
+
 class RegisterUserMutation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,9 +32,10 @@ class RegisterUserMutation extends StatelessWidget {
 class RegisterUserMu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final uiProvider = Provider.of<UiProvider>(context);
     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
-        backgroundColor: Color(0x6A636F83),
+        backgroundColor: Color(0x2F8899FF),
         body: Mutation(
           options: MutationOptions(
             document: gql("""
@@ -63,6 +66,7 @@ class RegisterUserMu extends StatelessWidget {
             // or do something with the result.data on completion
             onCompleted: (dynamic resultData) {
               userProvider.setUserId = resultData['setUser']['User_id'];
+              uiProvider.setOptionLogOut = 1;
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Home()),

@@ -7,10 +7,17 @@ import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
 import 'package:viwit_ma/src/widgets/userWidget/UserNavegationBar.dart';
 import 'package:viwit_ma/src/widgets/ScanButton.dart';
 
+import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
+
+import 'Login.dart';
+import 'Login.dart';
+import 'Login.dart';
+
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
+    final uiProvider = Provider.of<UiProvider>(context);
     return new WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -24,12 +31,18 @@ class Home extends StatelessWidget {
                 icon: new Icon(Icons.logout),
                 onPressed: () {
                   userProvider.logOut();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginUser()),
-                  );
+                  int op = uiProvider.getOptionLogOut;
+                  if (op == 0) {
+                    Navigator.of(context)..pop()..pop();
+                  } else {
+                    Navigator.of(context)
+                      ..pop()
+                      ..push(
+                        MaterialPageRoute(builder: (context) => LoginUser()),
+                      );
+                  }
                 }),
-            backgroundColor: Color(0xFA636F83),
+            backgroundColor: Color(0xCA3399FF),
             elevation: 5,
           ),
           body: _HomePageBody(),
