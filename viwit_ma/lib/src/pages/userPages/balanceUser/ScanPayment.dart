@@ -6,15 +6,21 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
 
+import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
+
 class ScanPayment extends StatelessWidget {
-  final String mutationPay = """
+  @override
+  Widget build(BuildContext context) {
+    final uiProvider = Provider.of<UiProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
+    final String mutationPay = """
 mutation{
   postCreateTransaction(transaction:{
     token:"hoy"
-    wallet_id:1
+    wallet_id:${userProvider.getUserId}
     id_method_payment: 1
     mount:2300
-    type: 0
+    type:0
   }){
     data{
     status
@@ -22,9 +28,6 @@ mutation{
   }
 }
  """;
-  @override
-  Widget build(BuildContext context) {
-    final uiProvider = Provider.of<UiProvider>(context);
     return Scaffold(
         backgroundColor: Color(0x6A636F83),
         body: Mutation(

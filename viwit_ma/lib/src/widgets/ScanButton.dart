@@ -15,7 +15,7 @@ class ScanButton extends StatelessWidget {
       child: FittedBox(
         child: FloatingActionButton(
           elevation: 1,
-          backgroundColor: Color(0xCA3399FF),
+          backgroundColor: Color(0xFF636F83),
           child: Icon(Icons.qr_code_scanner_sharp),
           onPressed: () async {
             String qr = await FlutterBarcodeScanner.scanBarcode(
@@ -25,7 +25,7 @@ class ScanButton extends StatelessWidget {
               //  json.decode(utf8.decode(base64.decode(qr)))['balance'];
             //print(payment);
             uiProvider.setQrCode = qr;
-            uiProvider.setSelectedOptionNavegationBar = 3;
+            uiProvider.setSelectedOptionNavegationBar = 4;
           },
         ),
       ),
