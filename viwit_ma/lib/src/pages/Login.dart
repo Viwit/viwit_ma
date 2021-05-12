@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/pages/Home.dart';
 import 'package:viwit_ma/src/pages/Register.dart';
-import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
-import 'package:viwit_ma/src/pages/userPages/messagesUser/LoginMessage.dart';
+import 'package:viwit_ma/src/providers/uiProvider/user/UiProviderUser.dart';
+import 'package:viwit_ma/src/pages/messages/LoginMessage.dart';
 
 import '../providers/userProvider/UserProvider.dart';
 
@@ -15,10 +14,10 @@ class LoginUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sizeScreen = MediaQuery.of(context).size;
-    final uiProvider = Provider.of<UiProvider>(context);
-    final indexNavegationBar = uiProvider.getSelectedOptionNavegationBar;
+    final uiProviderUser = Provider.of<UiProviderUser>(context);
+    final indexNavegationBar = uiProviderUser.getSelectedOptionNavegationBar;
     if (indexNavegationBar > 4) {
-      uiProvider.setSelectedOptionNavegationBar = 0;
+      uiProviderUser.setSelectedOptionNavegationBar = 0;
     }
     return Scaffold(
       backgroundColor: Colors.white,

@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/pages/Home.dart';
-
+import 'package:viwit_ma/src/pages/userPages/HomeUser.dart';
 import 'package:viwit_ma/src/pages/Login.dart';
 import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
-
-import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
+import 'package:viwit_ma/src/providers/uiProvider/user/UiProviderUser.dart';
 
 class RegisterUserMutation extends StatelessWidget {
   @override
@@ -32,10 +30,10 @@ class RegisterUserMutation extends StatelessWidget {
 class RegisterUserMu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final uiProvider = Provider.of<UiProvider>(context);
+    final uiProviderUser = Provider.of<UiProviderUser>(context);
     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
-        backgroundColor: Color(0x2F8899FF),
+        backgroundColor: Color(0x1F321FDB),
         body: Mutation(
           options: MutationOptions(
             document: gql("""
@@ -65,11 +63,21 @@ class RegisterUserMu extends StatelessWidget {
             },
             // or do something with the result.data on completion
             onCompleted: (dynamic resultData) {
-              userProvider.setUserId = resultData['setUser']['User_id'];
-              uiProvider.setOptionLogOut = 1;
+              try {
+                userProvider.setUserId = resultData['setUser']['User_id'];
+                uiProviderUser.setOptionLogOut = 1;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeUser()),
+                );
+              } catch (e) {
+                Navigator.pop(context);
+              }
+            },
+            onError: (error) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Home()),
+                MaterialPageRoute(builder: (context) => LoginUser()),
               );
             },
           ),
