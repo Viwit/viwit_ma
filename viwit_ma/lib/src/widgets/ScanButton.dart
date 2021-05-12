@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
 
-import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
+import 'package:viwit_ma/src/providers/uiProvider/user/UiProviderUser.dart';
 
 class ScanButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final uiProvider = Provider.of<UiProvider>(context);
+    final uiProvider = Provider.of<UiProviderUser>(context);
 
     return Container(
       height: 80.0,
@@ -25,7 +25,7 @@ class ScanButton extends StatelessWidget {
               //  json.decode(utf8.decode(base64.decode(qr)))['balance'];
             //print(payment);
             uiProvider.setQrCode = qr;
-            uiProvider.setSelectedOptionNavegationBar = 4;
+            uiProvider.setSelectedOptionNavegationBar = 5;
           },
         ),
       ),

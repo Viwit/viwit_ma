@@ -4,29 +4,24 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/pages/userPages/balanceUser/BalancePage.dart';
-import 'package:viwit_ma/src/pages/userPages/balanceUser/TransactionPage.dart';
-import 'package:viwit_ma/src/pages/Scan.dart';
-import 'package:viwit_ma/src/providers/uiProvider/user/UiProviderUser.dart';
-import 'package:viwit_ma/src/pages/userPages/qrCodeUser/GenerateQr.dart';
+import 'package:viwit_ma/src/pages/busPages/balanceBus/BalancePageBus.dart';
+import 'package:viwit_ma/src/pages/busPages/balanceBus/TransactionPageBus.dart';
+import 'package:viwit_ma/src/providers/uiProvider/bus/UiProviderBus.dart';
 
-import '../../complements/emojis.dart';
-
-class RouterMainMenu extends StatelessWidget {
+class RouterMainMenuBus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final uiProviderUser = Provider.of<UiProviderUser>(context);
-    final indexNavegationBar = uiProviderUser.getSelectedOptionNavegationBar;
+    final uiProviderBus = Provider.of<UiProviderBus>(context);
+    final indexNavegationBar = uiProviderBus.getSelectedOptionNavegationBar;
 
     final ValueNotifier<GraphQLClient> client =
         new ValueNotifier<GraphQLClient>(GraphQLClient(
-            link: uiProviderUser.getIpgraphQL, cache: GraphQLCache()));
+            link: uiProviderBus.getIpgraphQL, cache: GraphQLCache()));
 
     /*
      * 0 -> Menu principal: Saldo          |
-     * 1 -> Menu principal: Generar QR     | ==> Menu <==
-     * 2 -> Menu principal: Transacciones  |
-     * 3 -> Confirmacion Pago
+     * 1 -> Menu principal: Transacciones  | ==> Menu <==
+     * 3 -> Menu principal: Emergencia     |
      * default -> Saldo
     */
 
@@ -39,7 +34,7 @@ class RouterMainMenu extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Material App',
-            home: BalancePage(),
+            home: BalancePageBus(),
           ),
         );
         break;
@@ -51,37 +46,13 @@ class RouterMainMenu extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Material App',
-            home: Generate(),
+            home: TransactionPageBus(),
           ),
         );
         break;
 
-      // Menu principal: Transacciones
+      // Menu principal: Escanear
       case 2:
-        return GraphQLProvider(
-          client: client,
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Material App',
-            home: TransactionPage(),
-          ),
-        );
-        break;
-
-      // Menu principal: Transacciones
-      case 3:
-        return GraphQLProvider(
-          client: client,
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Material App',
-            home: TransactionPage(),
-          ),
-        );
-        break;
-
-      // Menu principal: Transacciones
-      case 4:
         final sizeScreen = MediaQuery.of(context).size;
         return Scaffold(
             backgroundColor: Color(0xFFFFFFFF),
@@ -147,17 +118,6 @@ class RouterMainMenu extends StatelessWidget {
             ]));
         break;
 
-      // Menu principal: Transacciones
-      case 5:
-        return GraphQLProvider(
-          client: client,
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Material App',
-            home: Scan(),
-          ),
-        );
-        break;
       // deafult: Saldo
       default:
         return GraphQLProvider(
@@ -165,7 +125,7 @@ class RouterMainMenu extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Material App',
-            home: Generate(),
+            home: BalancePageBus(),
           ),
         );
     }

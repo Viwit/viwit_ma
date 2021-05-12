@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
+import 'package:viwit_ma/src/providers/uiProvider/user/UiProviderUser.dart';
 
 import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
 
-class ScanPayment extends StatelessWidget {
+class Scan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final uiProvider = Provider.of<UiProvider>(context);
+    final uiProviderUser = Provider.of<UiProviderUser>(context);
     final userProvider = Provider.of<UserProvider>(context);
     final String mutationPay = """
 mutation{
@@ -60,7 +60,7 @@ mutation{
                         textAlign: TextAlign.center,
                         style: GoogleFonts.mandali(color: Colors.white)),
                     onPressed: () {
-                      uiProvider.setSelectedOptionNavegationBar = 0;
+                      uiProviderUser.setSelectedOptionNavegationBar = 0;
                     },
                   ),
                   FlatButton(
@@ -73,7 +73,7 @@ mutation{
                       runMutation({
                         'starrableId': 1,
                       });
-                      uiProvider.setSelectedOptionNavegationBar = 0;
+                      uiProviderUser.setSelectedOptionNavegationBar = 0;
                     },
                   )
                 ],

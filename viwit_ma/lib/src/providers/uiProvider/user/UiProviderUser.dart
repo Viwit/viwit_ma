@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:viwit_ma/src/classes/user.dart';
-import 'package:viwit_ma/src/classes/payment.dart';
 
-class UiProvider extends ChangeNotifier {
+class UiProviderUser extends ChangeNotifier {
   
   int _selectedOptionNavegationBar = 0;
   int _optionLogOut = 0;
