@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/pages/Home.dart';
+import 'package:viwit_ma/src/classes/token.dart';
 import 'package:viwit_ma/src/pages/Register.dart';
-import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
-import 'package:viwit_ma/src/pages/userPages/messagesUser/LoginMessage.dart';
+import 'package:viwit_ma/src/providers/uiProvider/user/UiProviderUser.dart';
+import 'package:viwit_ma/src/pages/messages/LoginMessage.dart';
+import 'package:viwit_ma/src/services/graphql.dart';
 
 import '../providers/userProvider/UserProvider.dart';
 
@@ -15,10 +16,10 @@ class LoginUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sizeScreen = MediaQuery.of(context).size;
-    final uiProvider = Provider.of<UiProvider>(context);
-    final indexNavegationBar = uiProvider.getSelectedOptionNavegationBar;
+    final uiProviderUser = Provider.of<UiProviderUser>(context);
+    final indexNavegationBar = uiProviderUser.getSelectedOptionNavegationBar;
     if (indexNavegationBar > 4) {
-      uiProvider.setSelectedOptionNavegationBar = 0;
+      uiProviderUser.setSelectedOptionNavegationBar = 0;
     }
     return Scaffold(
       backgroundColor: Colors.white,
@@ -133,6 +134,7 @@ Widget _password() {
 
 Widget _loginButton(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
+    final userUiProvider = Provider.of<UiProviderUser>(context);
   return RaisedButton(
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 5.0),
@@ -142,15 +144,70 @@ Widget _loginButton(BuildContext context) {
     elevation: 3.0,
     color: Color(0xFF3399FF),
     textColor: Colors.white,
-    onPressed: () {
-      userProvider.setEmail = _controllerEmail.text;
-      userProvider.setPassword= _controllerPassword.text;
-      _controllerEmail.clear();
-      _controllerPassword.clear();
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => LoginMessage()),
-      );
+    onPressed: () async {
+      String pattern =
+                      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+      RegExp regExp = new RegExp(pattern);
+
+      if(regExp.hasMatch(_controllerEmail.text ?? '') && _controllerPassword.text != ""){
+        Graphql graphQuery = new Graphql();
+        String query = """query{
+                        get_login(email:"${_controllerEmail.text}",password:"${_controllerPassword.text}"){
+                          isLogin,
+                          user_id
+                        }
+                      }""";
+        Map getLogin = await graphQuery.queryOrMutation(query);
+        if(getLogin['data']['get_login']['isLogin'] == 1){
+          
+          String mutationCreateToken = """mutation{
+                              put_token_firebase(id:${getLogin['data']['get_login']['user_id']},firebase:"${userProvider.getTokenFirebase}"){
+                                isValid,
+                                token{
+                                  finish,
+                                  id,
+                                  initial,
+                                  token,
+                                  type
+                                }
+                              }
+                            }""";
+
+          Map putTokenFirebase = await graphQuery.queryOrMutation(mutationCreateToken);
+
+          if(putTokenFirebase['data']['put_token_firebase']['isValid'] == 1){
+
+            String getuserQuery = """query{
+                                              getuser(id:${getLogin['data']['get_login']['user_id']}){
+                                                User_id,
+                                                Firstname,
+                                                Lastname,
+                                                Email,
+                                                Reg_date,
+                                                User_type
+                                              }
+                                            }""";
+
+            Map getuserMap = await graphQuery.queryOrMutation(getuserQuery);
+            userProvider.setFirstname = getuserMap['data']['getuser']['Firstname'];
+            userProvider.setLastname = getuserMap['data']['getuser']['Lastname'];
+            userProvider.setEmail = getuserMap['data']['getuser']['Email'];
+            userProvider.setUser_type = getuserMap['data']['getuser']['User_type'];
+            userProvider.setToken = Token.fromMap(putTokenFirebase['data']['put_token_firebase']['token']);
+            userProvider.setUserId = getLogin['data']['get_login']['user_id'];
+            userProvider.setEmail = _controllerEmail.text;
+            userProvider.setPassword= _controllerPassword.text;
+            _controllerEmail.clear();
+            _controllerPassword.clear();
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginMessage()),
+            );
+          }
+        }else{
+          _controllerPassword.clear();
+        }
+      }
     },
   );
 }

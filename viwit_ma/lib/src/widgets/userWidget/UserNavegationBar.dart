@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:viwit_ma/src/providers/uiProvider/UiProvider.dart';
+import 'package:viwit_ma/src/providers/uiProvider/user/UiProviderUser.dart';
 
 class NavegationBar extends StatefulWidget {
   @override
@@ -10,13 +10,13 @@ class NavegationBar extends StatefulWidget {
 class _NavegationBarState extends State<NavegationBar> {
   @override
   Widget build(BuildContext context) {
-    final uiProvider = Provider.of<UiProvider>(context);
-    final indexNavegationBar = uiProvider.getSelectedOptionNavegationBar;
+    final uiProviderUser = Provider.of<UiProviderUser>(context);
+    final indexNavegationBar = uiProviderUser.getSelectedOptionNavegationBar;
     final indexNavegationBar2 =
         indexNavegationBar <= 3 ? indexNavegationBar : 0;
     return BottomNavigationBar(
       onTap: (int option) => {
-        uiProvider.setSelectedOptionNavegationBar = option,
+        uiProviderUser.setSelectedOptionNavegationBar = option,
       },
       currentIndex: indexNavegationBar2,
       backgroundColor: Color(0xFFCED2D8),
@@ -29,7 +29,11 @@ class _NavegationBarState extends State<NavegationBar> {
         BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart_rounded), label: "Transacciones"),
         BottomNavigationBarItem(
-            icon: Icon(Icons.add_outlined), label: "Recargar")
+            icon: Icon(Icons.add_outlined), label: "Recargar"),
+        BottomNavigationBarItem(
+            backgroundColor: Colors.red,
+            icon: Icon(Icons.local_police_sharp),
+            label: "Emergencia")
       ],
     );
   }

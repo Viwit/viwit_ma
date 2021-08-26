@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:viwit_ma/src/classes/user.dart';
-import 'package:viwit_ma/src/classes/payment.dart';
+import 'package:viwit_ma/src/services/graphql.dart';
 
-class UiProvider extends ChangeNotifier {
+class UiProviderUser extends ChangeNotifier {
   
   int _selectedOptionNavegationBar = 0;
   int _optionLogOut = 0;
-  HttpLink _httpLink = HttpLink('http://23.22.177.41:3000/graphql');
+  HttpLink _httpLink = HttpLink((new Graphql()).getHttpLink);
+  String _httpLinkString = (new Graphql()).getHttpLink;
   String _qrCodePayment = "";
   UserClass userGeneral = new UserClass();
 
   logOut() {
     userGeneral = new UserClass();
   }
+
+  String get getHttpLinkString => this._httpLinkString;
 
   int get getSelectedOptionNavegationBar => this._selectedOptionNavegationBar;
 
