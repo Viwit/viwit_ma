@@ -1,3 +1,5 @@
+import 'package:viwit_ma/src/classes/token.dart';
+
 class UserClass {
   
   //Id del usuario
@@ -5,7 +7,7 @@ class UserClass {
 
   int get user_id => _user_id;
   set user_id(int user_id) {
-    _user_id = user_id;
+    this._user_id = user_id;
   }
   
   //Nombre del usuario
@@ -13,7 +15,7 @@ class UserClass {
 
   String get firstname => _firstname;
   set firstname(String firstname) {
-    _firstname = firstname;
+    this._firstname = firstname;
   }
   
   //Apellido del usuario
@@ -21,7 +23,7 @@ class UserClass {
 
   String get lastname => _lastname;
   set lastname(String lastname) {
-    _lastname = lastname;
+    this._lastname = lastname;
   }
   
   //Email
@@ -29,7 +31,7 @@ class UserClass {
 
   String get email => _email;
   set email(String email) {
-    _email = email;
+    this._email = email;
   }
 
   //Fecha de registo
@@ -37,7 +39,7 @@ class UserClass {
 
   DateTime get reg_date => _reg_date;
   set reg_date(DateTime reg_date) {
-    _reg_date = reg_date;
+    this._reg_date = reg_date;
   }
   
   //Tipo de usuario
@@ -45,7 +47,7 @@ class UserClass {
 
   int get user_type => _user_type;
   set user_type(int user_type) {
-    _user_type = user_type;
+    this._user_type = user_type;
   }
 
   //Contraseña
@@ -53,7 +55,20 @@ class UserClass {
 
   String get password => _password;
   set password(String password) {
-    _password = password;
+    this._password = password;
+  }
+
+  //Token Firebase
+  String _tokenFirebase;
+  String get tokenFirebase => _tokenFirebase;
+  set tokenFirebase(String tokenFirebase) {
+    this._tokenFirebase = _tokenFirebase;
+  }
+
+  Token _token;
+  Token get token => _token;
+  set token(Token token) {
+    this._token = token;
   }
 
 }

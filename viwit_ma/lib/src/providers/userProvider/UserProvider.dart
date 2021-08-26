@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:viwit_ma/src/classes/User.dart';
+import 'package:viwit_ma/src/classes/user.dart';
+import 'package:viwit_ma/src/classes/token.dart';
 
 class UserProvider extends ChangeNotifier {
 
@@ -8,6 +9,8 @@ class UserProvider extends ChangeNotifier {
   logOut(){
     user = new UserClass();
   }
+
+  UserClass get getUser => this.user;
 
   int get getUserId => this.user.user_id;
   set setUserId(int id) {
@@ -48,6 +51,23 @@ class UserProvider extends ChangeNotifier {
   String get getPassword => this.user.password;
   set setPassword(String password) {
     this.user.password = password;
+    notifyListeners();
+  }
+  
+  String get getTokenFirebase => this.user.tokenFirebase;
+  set setTokenFirebase(String tokenFirebase) {
+    this.user.tokenFirebase = tokenFirebase;
+    notifyListeners();
+  }
+
+  Token get getToken => this.user.token;
+  set setToken(Token token) {
+    this.user.token = token;
+    notifyListeners();
+  }
+
+  void setTokenVoid(Token token) {
+    this.user.token = token;
     notifyListeners();
   }
 

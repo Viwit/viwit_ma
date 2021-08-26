@@ -11,12 +11,13 @@ import 'package:viwit_ma/src/providers/uiProvider/user/UiProviderUser.dart';
 import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
 import 'package:viwit_ma/src/pages/userPages/HomeUser.dart';
 import 'package:viwit_ma/src/pages/busPages/HomeBus.dart';
+import 'package:viwit_ma/src/services/graphql.dart';
 import '../Login.dart';
 
 class LoginMessage extends StatelessWidget {
   final ValueNotifier<GraphQLClient> client = new ValueNotifier<GraphQLClient>(
       GraphQLClient(
-          link: HttpLink('http://23.22.177.41:3000/graphql'),
+          link: HttpLink((new Graphql()).getHttpLink),
           cache: GraphQLCache()));
   final String getAllWallet = r"""
                                 query($id: Int!){
@@ -40,12 +41,12 @@ class LoginMessage extends StatelessWidget {
             backgroundColor: Color(0x1F321FDB),
             body: Query(
                 options: QueryOptions(
-                    document: gql(getAllWallet), variables: {"id": 1}),
+                    document: gql(getAllWallet), variables: {"id": userProvider.getUserId}),
                 //Debe recibir el id de la billetera del usuario
                 builder: (result, {fetchMore, refetch}) {
                   if (result.hasException) {
                     return AlertDialog(
-                        title: Text(('¡ Error !'),
+                        title: Text(('¡ Error ! ${result.exception}'),
                             textScaleFactor: 2,
                             textAlign: TextAlign.center,
                             style:
@@ -59,7 +60,7 @@ class LoginMessage extends StatelessWidget {
                                 style:
                                     GoogleFonts.mandali(color: Colors.white)),
                             onPressed: () {
-                              userProvider.setUserId = 1;
+                              userProvider.setUserId = null;
                               uiProviderUser.setOptionLogOut = 0;
                               Navigator.push(
                                 context,
@@ -100,11 +101,7 @@ class LoginMessage extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: GoogleFonts.mandali(color: Colors.white)),
                           onPressed: () {
-                            userProvider.setUserId = 1;
-
-                            var a = Random().nextInt(2);
-                            print('Random------>>> $a');
-                            if (a == 0) {
+                            if (userProvider.getUser_type == 1) {
                               uiProviderUser.setOptionLogOut = 0;
                               //Home User
                               Navigator.push(

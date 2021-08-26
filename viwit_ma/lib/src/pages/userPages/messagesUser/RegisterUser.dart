@@ -1,23 +1,24 @@
 // @dart=2.9
 
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server/gmail.dart';
 import 'package:provider/provider.dart';
+import 'package:viwit_ma/src/classes/token.dart';
 import 'package:viwit_ma/src/pages/userPages/HomeUser.dart';
 import 'package:viwit_ma/src/pages/Login.dart';
 import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
 import 'package:viwit_ma/src/providers/uiProvider/user/UiProviderUser.dart';
+import 'package:viwit_ma/src/services/graphql.dart';
 
 class RegisterUserMutation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<GraphQLClient> client =
         new ValueNotifier<GraphQLClient>(GraphQLClient(
-            link: HttpLink('http://23.22.177.41:3000/graphql'),
+            link: HttpLink((new Graphql()).getHttpLink),
             cache: GraphQLCache()));
     return GraphQLProvider(
       client: client,
@@ -90,16 +91,70 @@ class RegisterUserMu extends StatelessWidget {
                   final sendReport = await send(message, smtpServer);
                   print('Message sent: ' + sendReport.toString());
                 } on MailerException catch (e) {
-                  print('Message not sent.');
+                  print('Message not sent. ${e}');
                   for (var p in e.problems) {
                     print('Problem: ${p.code}: ${p.msg}');
                   }
+                } catch(ex){
+                  print('Message not sent. ${ex}');
                 }
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeUser()),
-                );
+                Graphql graphQuery = new Graphql();
+
+                String mutationCreateToken = """mutation{
+                              put_token_firebase(id:${userProvider.getUserId},firebase:"${userProvider.getTokenFirebase}"){
+                                isValid,
+                                token{
+                                  finish,
+                                  id,
+                                  initial,
+                                  token,
+                                  type
+                                }
+                              }
+                            }""";
+
+                Map putTokenFirebase = await graphQuery.queryOrMutation(mutationCreateToken);
+
+                userProvider.setTokenVoid(Token.fromMap(putTokenFirebase['data']['put_token_firebase']['token']));
+            
+                if(putTokenFirebase['data']['put_token_firebase']['isValid'] == 1){
+
+                  String query = """mutation{
+                                    postCreateWallet(wallet:{
+                                      token:"generico",
+                                      user_id:${userProvider.getUserId},
+                                    }){
+                                      data{
+                                        balance,
+                                        id,
+                                        token,
+                                        user_id
+                                      }
+                                    }
+                                  }""";
+                  Map postCreateWallet = await graphQuery.queryOrMutation(query);
+
+                  print(postCreateWallet['data']['postCreateWallet']['data']['token']);
+
+                  if(userProvider.getToken.token != null && userProvider.getToken.token != ""){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeUser()),
+                    );
+                  }else{
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginUser()),
+                    );
+                  }
+
+                }else{
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginUser()),
+                    );
+                }
               } catch (e) {
                 Navigator.push(
                   context,

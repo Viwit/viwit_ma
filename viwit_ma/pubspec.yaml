@@ -37,7 +37,7 @@ dependencies:
   intl: ^0.17.0
   flutter_phone_direct_caller: ^2.0.0
   flutter_email_sender: ^5.0.0
-  mailer: ^5.0.0
+  mailer: ^5.0.2
 
 dev_dependencies:
   flutter_test:

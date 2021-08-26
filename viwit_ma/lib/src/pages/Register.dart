@@ -5,6 +5,7 @@ import 'package:viwit_ma/src/pages/Login.dart';
 import 'package:viwit_ma/src/pages/userPages/messagesUser/RegisterUser.dart';
 
 import 'package:viwit_ma/src/providers/userProvider/UserProvider.dart';
+import 'package:viwit_ma/src/services/graphql.dart';
 
 final _controllerEmail = TextEditingController();
 final _controllerPassword = TextEditingController();
@@ -167,19 +168,30 @@ Widget _registrarButton(BuildContext context) {
     elevation: 3.0,
     color: Color(0xFF3399FF),
     textColor: Colors.white,
-    onPressed: () {
-      userProvider.setEmail = _controllerEmail.text;
-      userProvider.setPassword = _controllerPassword.text;
-      userProvider.setFirstname = _controllerFirstName.text;
-      userProvider.setLastname = _controllerLastName.text;
-      _controllerEmail.clear();
-      _controllerPassword.clear();
-      _controllerFirstName.clear();
-      _controllerLastName.clear();
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => RegisterUserMutation()),
-      );
+    onPressed: () async {
+      String pattern =
+                      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+      RegExp regExp = new RegExp(pattern);
+
+      if(
+        regExp.hasMatch(_controllerEmail.text ?? '') 
+        && _controllerPassword.text != "" 
+        && _controllerFirstName.text != "" 
+        && _controllerLastName.text != ""
+        ){
+          userProvider.setEmail = _controllerEmail.text;
+          userProvider.setPassword = _controllerPassword.text;
+          userProvider.setFirstname = _controllerFirstName.text;
+          userProvider.setLastname = _controllerLastName.text;
+          _controllerEmail.clear();
+          _controllerPassword.clear();
+          _controllerFirstName.clear();
+          _controllerLastName.clear();
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => RegisterUserMutation()),
+          );
+      }
     },
   );
 }
