@@ -1,4 +1,4 @@
-package com.example.viwit_ma
+package com.viwitunal.viwit_ma
 
 import io.flutter.embedding.android.FlutterActivity
 
